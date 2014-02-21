@@ -14,7 +14,7 @@ go get github.com/geetarista/vindinium-starter-go
 
 ## Getting Started
 
-This starter gives you everything you need to start playing with Vindinium except for a bot. There are a couple [example bots](vindinium/bot.go), but these are just stubs. Your goal is to build a bot or bots that you can use to compete on Vindinium. Either flesh out the FighterBot or create a new bot with your logic for competing. When adding a new bot, ensure it is properly linked in the `Setup` method in [clieng.go](Vindinium/client.go).
+This starter gives you everything you need to start playing with Vindinium except for a bot. There are a couple [example bots](vindinium/bot.go), but these are just stubs. Your goal is to build a bot or bots that you can use to compete on Vindinium. Either flesh out the FighterBot or create a new bot with your logic for competing. When adding a new bot, ensure it is properly linked in the `Setup` method in [client.go](vindinium/client.go).
 
 Once you've added a bot, all you need to do is build run `make` to create a client executable. If you are adding tests for your bot, you can run them with `make test`.
 
@@ -28,17 +28,17 @@ To use the vindinium client, just call the executable and pass in the flags you 
 
 The remaining flags are optional:
 
-`m` This is the game mode. Choices are `arena` and `training`. Default: `arena`
+`-m` This is the game mode. Choices are `arena` and `training`. Default: `arena`
 
-`b` The name of your bot. This name is defined in [client.go](vindinium/client.go) and must set up the associated bot. Default: `fighter`
+`-b` The name of your bot. This name is defined in [client.go](vindinium/client.go) and must set up the associated bot. Default: `fighter`
 
-`c` The count of games (arena) or turns (training) to play. Default: `1`
+`-c` The count of games (arena) or turns (training) to play. Default: `1`
 
-`r` Use a random map in training mode. Setting to `false` can be useful to ensure consistency in training. Default: `true`
+`-r` Use a random map in training mode. Setting to `false` can be useful to ensure consistency in training. Default: `true`
 
-`s` The server to play against. Default: `http://vindinium.org`
+`-s` The server to play against. Default: `http://vindinium.org`
 
-`d` Debug mode&mdash;verbose output for debugging and testing. Default: `false`
+`-d` Debug mode&mdash;verbose output for debugging and testing. Default: `false`
 
 ## API Documentation
 
