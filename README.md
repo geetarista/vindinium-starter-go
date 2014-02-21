@@ -1,4 +1,4 @@
-# vindinium-starter-go [![Build Status](https://drone.io/github.com/geetarista/vindinium-starter-go/status.png)](https://drone.io/github.com/geetarista/vindinium-starter-go/latest)
+# vindinium-starter-go
 
 Go starter bot for [Vindinium](http://vindinium.org), based on the [Python starter](https://github.com/ornicar/vindinium-starter-python).
 
