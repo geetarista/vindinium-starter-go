@@ -10,7 +10,7 @@ build:
 	go build -o client
 
 clean:
-	rm client
+	@if [ -x client ]; then rm client; fi
 
 deps:
 	@echo "$(OK_COLOR)==> Installing dependencies$(NO_COLOR)"
