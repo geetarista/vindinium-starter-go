@@ -25,22 +25,22 @@ func (s *ClientSuite) SetUpTest(c *C) {
 }
 
 func (s *ClientSuite) TestNewClient_Training(c *C) {
-	client := NewClient("server", "key", "training", "fighter", 1, false, true)
+	client := NewClient("server", "key", "training", "fighter", "1", false, true)
 	c.Assert(client.Server, Equals, "server")
 	c.Assert(client.Key, Equals, "key")
 	c.Assert(client.Mode, Equals, "training")
 	c.Assert(client.Bot, DeepEquals, &FighterBot{})
-	c.Assert(client.Turns, Equals, 1)
+	c.Assert(client.Turns, Equals, "1")
 	c.Assert(client.Url, Equals, "server/api/training")
 }
 
 func (s *ClientSuite) TestNewClient_Arena(c *C) {
-	client := NewClient("server", "key", "arena", "random", 1, true, false)
+	client := NewClient("server", "key", "arena", "random", "1", true, false)
 	c.Assert(client.Server, Equals, "server")
 	c.Assert(client.Key, Equals, "key")
 	c.Assert(client.Mode, Equals, "arena")
 	c.Assert(client.Bot, DeepEquals, &RandomBot{})
-	c.Assert(client.Turns, Equals, 1)
+	c.Assert(client.Turns, Equals, "1")
 	c.Assert(client.Url, Equals, "server/api/arena")
 }
 
@@ -63,7 +63,7 @@ func (s *ClientSuite) TestMove(c *C) {
 	defer server.Close()
 	stateStr := fmt.Sprintf(`{"game":{"board":{"id":"abc123","token":"xyz789","size":5,"tiles":"  ##[]$-@1  &&**()^^  ##[]$-@1  ##[]$-@1  ##[]$-@1"}},"playUrl":"%s/api/abc123/xyz789/play"}`, server.URL)
 	_ = json.Unmarshal([]byte(stateStr), &s.state)
-	client := NewClient(server.URL, "key", "arena", "fighter", 1, true, false)
+	client := NewClient(server.URL, "key", "arena", "fighter", "1", true, false)
 	client.State = &s.state
 	err := client.move(Direction("East"))
 	c.Assert(err, Equals, nil)
@@ -79,7 +79,7 @@ func (s *ClientSuite) TestStart_Arena(c *C) {
 	}
 	server := httptest.NewServer(http.HandlerFunc(handler))
 	defer server.Close()
-	client := NewClient(server.URL, "xyz789", "arena", "fighter", 1, true, false)
+	client := NewClient(server.URL, "xyz789", "arena", "fighter", "1", true, false)
 	client.Start()
 
 	c.Assert(client.Key, Equals, "xyz789")
@@ -96,7 +96,7 @@ func (s *ClientSuite) TestStart_Training(c *C) {
 	}
 	server := httptest.NewServer(http.HandlerFunc(handler))
 	defer server.Close()
-	client := NewClient(server.URL, "xyz789", "training", "fighter", 10, false, true)
+	client := NewClient(server.URL, "xyz789", "training", "fighter", "10", false, true)
 	client.Start()
 
 	c.Assert(client.Key, Equals, "xyz789")
@@ -107,7 +107,7 @@ func (s *ClientSuite) TestStart_BadUri(c *C) {
 	handler := func(w http.ResponseWriter, r *http.Request) {}
 	server := httptest.NewServer(http.HandlerFunc(handler))
 	defer server.Close()
-	client := NewClient("nonexistent", "xyz789", "training", "fighter", 10, true, false)
+	client := NewClient("nonexistent", "xyz789", "training", "fighter", "10", true, false)
 	err := client.Start()
 
 	c.Assert(err, FitsTypeOf, &url.Error{})
@@ -116,7 +116,7 @@ func (s *ClientSuite) TestStart_BadUri(c *C) {
 func (s *ClientSuite) TestStart_BadJson(c *C) {
 	server := httptest.NewServer(http.HandlerFunc(invalidJSONHandler))
 	defer server.Close()
-	client := NewClient(server.URL, "xyz789", "training", "fighter", 10, true, false)
+	client := NewClient(server.URL, "xyz789", "training", "fighter", "10", true, false)
 	err := client.Start()
 
 	c.Assert(err, FitsTypeOf, &json.SyntaxError{})
@@ -136,7 +136,7 @@ func (s *ClientSuite) TestPlay(c *C) {
 	defer server.Close()
 	stateStr := fmt.Sprintf(`{"game":{"board":{"id":"abc123","token":"xyz789","size":5,"tiles":"  ##[]$-@1  &&**()^^  ##[]$-@1  ##[]$-@1  ##[]$-@1"}},"playUrl":"%s/api/abc123/xyz789/play"}`, server.URL)
 	_ = json.Unmarshal([]byte(stateStr), &s.state)
-	client := NewClient(server.URL, "xyz789", "training", "fighter", 10, true, true)
+	client := NewClient(server.URL, "xyz789", "training", "fighter", "10", true, true)
 	s.client = client
 	client.State = &s.state
 	client.Play()
@@ -149,7 +149,7 @@ func (s *ClientSuite) TestPlay_Error(c *C) {
 	defer server.Close()
 	stateStr := fmt.Sprintf(`{"game":{"board":{"id":"abc123","token":"xyz789","size":5,"tiles":"  ##[]$-@1  &&**()^^  ##[]$-@1  ##[]$-@1  ##[]$-@1"}},"playUrl":"%s/api/abc123/xyz789/play"}`, server.URL)
 	_ = json.Unmarshal([]byte(stateStr), &s.state)
-	client := NewClient(server.URL, "xyz789", "training", "fighter", 10, true, false)
+	client := NewClient(server.URL, "xyz789", "training", "fighter", "10", true, false)
 	s.client = client
 	client.State = &s.state
 	err := client.Play()

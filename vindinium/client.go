@@ -7,7 +7,6 @@ import (
 	"net"
 	"net/http"
 	"net/url"
-	"strconv"
 	"time"
 )
 
@@ -21,7 +20,7 @@ type Client struct {
 	Key       string
 	Mode      string
 	BotName   string
-	Turns     int
+	Turns     string
 	RandomMap bool
 	Debug     bool
 	Bot       Bot
@@ -29,7 +28,7 @@ type Client struct {
 	Url       string
 }
 
-func NewClient(server, key, mode, botName string, turns int, randomMap bool, debug bool) (client *Client) {
+func NewClient(server, key, mode, botName, turns string, randomMap bool, debug bool) (client *Client) {
 	client = &Client{
 		Server:    server,
 		Key:       key,
@@ -98,7 +97,7 @@ func (c *Client) Start() error {
 	values := make(url.Values)
 	values.Set("key", c.Key)
 	if c.Mode == "training" {
-		values.Set("turns", strconv.Itoa(c.Turns))
+		values.Set("turns", c.Turns)
 		if !c.RandomMap {
 			values.Set("map", "m1")
 		}

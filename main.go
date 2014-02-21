@@ -4,13 +4,14 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strconv"
 
 	"github.com/geetarista/vindinium-starter-go/vindinium"
 )
 
 var (
 	client vindinium.Client
-	count  int
+	count  string
 	games  int
 )
 
@@ -19,7 +20,7 @@ func init() {
 	flag.StringVar(&client.Key, "k", "", "api key")
 	flag.StringVar(&client.Mode, "m", "arena", "mode (arena or training)")
 	flag.StringVar(&client.BotName, "b", "fighter", "name of bot to use")
-	flag.IntVar(&count, "c", 1, "number of games or turns to play")
+	flag.StringVar(&count, "c", "1", "number of games or turns to play")
 	flag.BoolVar(&client.RandomMap, "r", true, "use random map (useful for training against same map)")
 	flag.BoolVar(&client.Debug, "d", false, "debug output")
 	flag.Usage = func() {
@@ -39,8 +40,8 @@ func main() {
 		games = 1
 		client.Turns = count
 	} else {
-		games = count
-		client.Turns = 300
+		games, _ = strconv.Atoi(count)
+		client.Turns = "300"
 	}
 
 	client.Setup()
