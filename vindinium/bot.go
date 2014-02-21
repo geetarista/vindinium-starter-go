@@ -29,10 +29,3 @@ func (b *FighterBot) Move(state *State) Direction {
 	// Do something awesome
 	return randDir()
 }
-
-// type SlowBot struct{}
-//
-// func (b *SlowBot) Move(state *State) Direction {
-// 	time.Sleep(2 * time.Millisecond)
-// 	return randDir()
-// }
