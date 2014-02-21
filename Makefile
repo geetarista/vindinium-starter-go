@@ -7,10 +7,10 @@ DEPS = $(go list -f '{{range .TestImports}}{{.}} {{end}}' ./...)
 all: clean deps format build
 
 build:
-	go build
+	go build -o client
 
 clean:
-	rm vindinium/vindinium.test
+	rm client
 
 deps:
 	@echo "$(OK_COLOR)==> Installing dependencies$(NO_COLOR)"
