@@ -3,6 +3,7 @@ NO_COLOR=\033[0m
 OK_COLOR=\033[32;01m
 WARN_COLOR=\033[33;01m
 DEPS = $(go list -f '{{range .TestImports}}{{.}} {{end}}' ./...)
+DOC_PORT = 6060
 
 all: clean deps format build done
 
@@ -17,6 +18,10 @@ deps:
 	@echo "$(OK_COLOR)==> Installing dependencies...$(NO_COLOR)"
 	@go get -d -v ./...
 	@echo $(DEPS) | xargs -n1 go get -d
+
+docs:
+	@echo "$(OK_COLOR)==> Serving docs at http://localhost:$(DOC_PORT).$(NO_COLOR)"
+	@godoc -http=:$(DOC_PORT)
 
 done:
 	@echo "$(OK_COLOR)==> Done.$(NO_COLOR)"
