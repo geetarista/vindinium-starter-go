@@ -9,6 +9,12 @@ const (
 	WALL = iota - 2
 	AIR
 	TAVERN
+
+	AIR_TILE    = " "
+	WALL_TILE   = "#"
+	TAVERN_TILE = "["
+	MINE_TILE   = "$"
+	HERO_TILE   = "@"
 )
 
 var (
@@ -39,16 +45,16 @@ func tileToInt(tiles string, index int) int {
 
 func (board *Board) parseTile(tile string) interface{} {
 	switch string([]rune(tile)[0]) {
-	case " ":
+	case AIR_TILE:
 		return AIR
-	case "#":
+	case WALL_TILE:
 		return WALL
-	case "[":
+	case TAVERN_TILE:
 		return TAVERN
-	case "$":
+	case MINE_TILE:
 		id := string([]rune(tile)[1])
 		return &MineTile{id}
-	case "@":
+	case HERO_TILE:
 		char := string([]rune(tile)[1])
 		id, _ := strconv.Atoi(char)
 		return &HeroTile{id}
