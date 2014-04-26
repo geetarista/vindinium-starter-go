@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"testing"
 
-	. "launchpad.net/gocheck"
+	. "gopkg.in/check.v1"
 )
 
 var (
