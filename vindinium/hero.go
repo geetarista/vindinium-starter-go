@@ -5,7 +5,7 @@ type Hero struct {
 	Name      string    `json:"name"`
 	UserId    string    `json:"userId"`
 	Elo       int       `json:"elo"`
-	Pos       *Position `json:"location"`
+	Pos       *Position `json:"pos"`
 	Life      int       `json:"life"`
 	Gold      int       `json:"gold"`
 	MineCount int       `json:"mineCount"`

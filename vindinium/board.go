@@ -68,17 +68,18 @@ func (board *Board) parseTiles() {
 	var matrix [][][]rune
 	ts := make([][]interface{}, board.Size)
 
-	for i := 0; i < len(board.Tiles)-2; i = i + 2 {
+	for i := 0; i <= len(board.Tiles)-2; i = i + 2 {
 		vector = append(vector, []rune(board.Tiles)[i:i+2])
 	}
 
-	for i := 0; i < len(vector)-board.Size; i = i + board.Size {
+	for i := 0; i < len(vector); i = i + board.Size {
 		matrix = append(matrix, vector[i:i+board.Size])
 	}
 
 	for xi, x := range matrix {
 		innerList := make([]interface{}, board.Size)
 		for xsi, xs := range x {
+			
 			innerList[xsi] = board.parseTile(string(xs))
 		}
 		ts[xi] = innerList
