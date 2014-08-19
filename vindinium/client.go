@@ -2,6 +2,7 @@ package vindinium
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net"
@@ -78,9 +79,16 @@ func (c *Client) post(uri string, values url.Values, seconds int) error {
 	if err != nil {
 		return err
 	}
+
 	defer response.Body.Close()
 
 	data, _ := ioutil.ReadAll(response.Body)
+
+	if response.StatusCode >= 500 {
+		return errors.New(fmt.Sprintf("Server responded with %s", response.Status))
+	} else if response.StatusCode >= 400 {
+		return errors.New(fmt.Sprintf("Request error: %s", string(data[:])))
+	}
 
 	if err := json.Unmarshal(data, &c.State); err != nil {
 		return err

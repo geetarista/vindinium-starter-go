@@ -79,7 +79,7 @@ func (board *Board) parseTiles() {
 	for xi, x := range matrix {
 		innerList := make([]interface{}, board.Size)
 		for xsi, xs := range x {
-			
+
 			innerList[xsi] = board.parseTile(string(xs))
 		}
 		ts[xi] = innerList
