@@ -90,7 +90,7 @@ func (board *Board) parseTiles() {
 
 func (board *Board) Passable(loc Position) bool {
 	tile := board.Tileset[loc.X][loc.Y]
-	return tile != WALL && tile != TAVERN && reflect.TypeOf(tile).String() != "MineTile"
+	return tile == AIR
 }
 
 func (board *Board) To(loc Position, direction Direction) *Position {
