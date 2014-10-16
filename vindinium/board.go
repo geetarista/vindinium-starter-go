@@ -101,15 +101,15 @@ func (board *Board) To(loc Position, direction Direction) *Position {
 	if nRow < 0 {
 		nRow = 0
 	}
-	if nRow > board.Size {
-		nRow = board.Size
+	if nRow > board.Size-1 {
+		nRow = board.Size-1
 	}
 	nCol := col + dLoc.Y
 	if nCol < 0 {
 		nCol = 0
 	}
-	if nCol > board.Size {
-		nCol = board.Size
+	if nCol > board.Size-1 {
+		nCol = board.Size-1
 	}
 
 	return &Position{nRow, nCol}
