@@ -45,18 +45,18 @@ func (s *BoardSuite) TestPassable(c *C) {
 	c.Assert(s.board.Passable(Position{0, 0}), Equals, true)  // air
 	c.Assert(s.board.Passable(Position{0, 1}), Equals, false) // wall
 	c.Assert(s.board.Passable(Position{0, 2}), Equals, false) // tavern
-	c.Assert(s.board.Passable(Position{0, 3}), Equals, true)  // mine
-	c.Assert(s.board.Passable(Position{0, 4}), Equals, true)  // hero
+	c.Assert(s.board.Passable(Position{0, 3}), Equals, false) // mine
+	c.Assert(s.board.Passable(Position{0, 4}), Equals, false) // hero
 }
 
 func (s *BoardSuite) TestTo(c *C) {
 	c.Assert(s.board.To(Position{0, 0}, "North"), DeepEquals, &Position{0, 0})
 	c.Assert(s.board.To(Position{1, 1}, "North"), DeepEquals, &Position{0, 1})
 	c.Assert(s.board.To(Position{2, 2}, "North"), DeepEquals, &Position{1, 2})
-	c.Assert(s.board.To(Position{6, 0}, "South"), DeepEquals, &Position{5, 0})
+	c.Assert(s.board.To(Position{6, 0}, "South"), DeepEquals, &Position{4, 0})
 	c.Assert(s.board.To(Position{0, 0}, "South"), DeepEquals, &Position{1, 0})
 	c.Assert(s.board.To(Position{1, 2}, "South"), DeepEquals, &Position{2, 2})
-	c.Assert(s.board.To(Position{0, 6}, "East"), DeepEquals, &Position{0, 5})
+	c.Assert(s.board.To(Position{0, 6}, "East"), DeepEquals, &Position{0, 4})
 	c.Assert(s.board.To(Position{0, 0}, "East"), DeepEquals, &Position{0, 1})
 	c.Assert(s.board.To(Position{1, 1}, "East"), DeepEquals, &Position{1, 2})
 	c.Assert(s.board.To(Position{2, 0}, "West"), DeepEquals, &Position{2, 0})
